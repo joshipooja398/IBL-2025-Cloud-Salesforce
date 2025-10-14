@@ -1,0 +1,16 @@
+<template>
+    <lightning-card title="Poojas S3 Buckets">
+        <template if:true={buckets}>
+            <ul>
+                <template for:each={buckets} for:item="bucket">
+                    <li key={bucket}>{bucket}</li>
+                </template>
+            </ul>
+        </template>
+        <template if:true={error}>
+            <div class="slds-text-color_error">
+                {error}
+            </div>
+        </template>
+    </lightning-card>
+</template>
