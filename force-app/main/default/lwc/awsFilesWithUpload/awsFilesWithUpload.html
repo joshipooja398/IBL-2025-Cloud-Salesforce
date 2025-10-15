@@ -1,0 +1,73 @@
+<template>
+    <lightning-card>
+        <!-- Header with label + button -->
+        <div slot="title" class="slds-grid slds-grid_vertical-align-center slds-p-horizontal_small">
+            <div class="slds-col slds-align-middle slds-m-right_small">
+                <span class="slds-text-heading_small">S3 Files</span>
+            </div>
+            <div class="slds-col slds-align-middle">
+                <lightning-button 
+                    variant="brand"
+                    label={buttonLabel}
+                    onclick={handleArchive}
+                    disabled={busy}>
+                </lightning-button>
+            </div>
+        </div>
+
+        <!-- Body -->
+        <div class="slds-m-around_medium">
+            <template if:true={hasFiles}>
+                <div class="slds-scrollable_x">
+                    <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                        <thead>
+                            <tr>
+                                <th>File Name</th>
+                                <th>Type</th>
+                                <th>Size</th>
+                                <th>Floorplan</th>
+                                <th>Statement of Info</th>
+                                <th>Portal Available</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={files} for:item="file">
+                                <tr key={file.Key}>
+                                    <td>
+                                        <div class="slds-truncate" title={file.Name}>
+                                            <lightning-icon icon-name={file.iconName} size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                                            {file.Name}
+                                        </div>
+                                    </td>
+                                    <td>{file.Extension}</td>
+                                    <td>{file.FormattedSize}</td>
+                                    <td>
+                                        <template if:true={file.Floorplan}>
+                                            <lightning-icon icon-name="utility:check" size="x-small"></lightning-icon>
+                                        </template>
+                                    </td>
+                                    <td>
+                                        <template if:true={file.StatementOfInformation}>
+                                            <lightning-icon icon-name="utility:check" size="x-small"></lightning-icon>
+                                        </template>
+                                    </td>
+                                    <td>
+                                        <template if:true={file.PortalAvailable}>
+                                            <lightning-icon icon-name="utility:check" size="x-small"></lightning-icon>
+                                        </template>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </template>
+
+            <template if:false={hasFiles}>
+                <p class="slds-text-body_regular slds-m-top_medium slds-m-left_medium">
+                    No files in S3 for this Property Listing.
+                </p>
+            </template>
+        </div>
+    </lightning-card>
+</template>

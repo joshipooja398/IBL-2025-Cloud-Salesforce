@@ -1,0 +1,80 @@
+<template>
+    <template if:true={files}>
+        <div class="slds-box slds-theme_default slds-m-around_medium">
+            <h2 class="slds-text-heading_medium slds-m-bottom_small">Azure Files <lightning-button-icon icon-name="utility:sync" onclick={refreshFiles}></lightning-button-icon></h2>
+            
+            <template if:true={files.length}>
+                <div class="slds-scrollable_x">
+                    <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th scope="col"><div class="slds-truncate">File Name</div></th>
+                                <th scope="col"><div class="slds-truncate">Type</div></th>
+                                <th scope="col"><div class="slds-truncate">Size</div></th>
+                                <th scope="col"><div class="slds-truncate">Floorplan</div></th>
+                                <th scope="col"><div class="slds-truncate">Statement of Info</div></th>
+                                <th scope="col"><div class="slds-truncate">Portal Available</div></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={files} for:item="file">
+                                <tr key={file.Name} class="slds-hint-parent">
+                                    <td data-label="File Name">
+                                        <div class="slds-truncate" title={file.Name}>
+                                            <template if:true={file.iconName}>
+                                                <lightning-icon 
+                                                    icon-name={file.iconName} 
+                                                    size="x-small" 
+                                                    alternative-text="file"
+                                                    class="slds-m-right_x-small">
+                                                </lightning-icon>
+                                            </template>
+                                            {file.Name}
+                                        </div>
+                                    </td>
+                                    <td data-label="Type">
+                                        <div class="slds-truncate">{file.Extension}</div>
+                                    </td>
+                                    <td data-label="Size">
+                                        <div class="slds-truncate">{file.Size}</div>
+                                    </td>
+                                    <td data-label="Floorplan">
+                                        <div class="slds-truncate">
+                                            <template if:true={file.Floorplan}>
+                                                <lightning-icon icon-name="utility:check" size="x-small"></lightning-icon>
+                                            </template>
+                                        </div>
+                                    </td>
+                                    <td data-label="Statement of Info">
+                                        <div class="slds-truncate">
+                                            <template if:true={file.StatementOfInformation}>
+                                                <lightning-icon icon-name="utility:check" size="x-small"></lightning-icon>
+                                            </template>
+                                        </div>
+                                    </td>
+                                    <td data-label="Portal Available">
+                                        <div class="slds-truncate">
+                                            <template if:true={file.PortalAvailable}>
+                                                <lightning-icon icon-name="utility:check" size="x-small"></lightning-icon>
+                                            </template>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </template>
+
+            <template if:false={files.length}>
+                <p class="slds-text-color_weak slds-m-top_medium">
+                    No files in Azure for this Property Listing.
+                </p>
+            </template>
+        </div>
+    </template>
+
+    <template if:true={error}>
+        <div class="slds-text-color_error slds-m-around_medium">{error}</div>
+    </template>
+</template>

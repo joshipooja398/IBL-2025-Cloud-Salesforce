@@ -1,6 +1,3 @@
-# IBL-2025-Cloud-Salesforce
-It is my internship demo which has Integration of Salesforce with Cloud.
-
 # Cloud File Archiving Flows
 This project manages file uploads and archiving between Salesforce and two cloud storage platforms - Microsoft Azure and Amazon AWS.
 Each integration flow uses a dedicated Lightning Web Component (LWC) and Apex classes to handle file retrieval, batching, and uploading.
